@@ -45,7 +45,7 @@
 #  if NANOGUI_GLES_VERSION == 2
 #    include <GLES2/gl2ext.h>
 #  elif NANOGUI_GLES_VERSION == 3
-#    include <GLES3/gl2ext.h>
+#    include <GLES2/gl2ext.h>
 #  endif
 #endif
 

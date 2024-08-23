@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char light_field_renderer_frag[] = R"(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 uniform sampler2D data_image;
 
@@ -29,7 +31,7 @@ void main()
         discard;
     }
 
-    float aperture_filter = pow(clamp(1.0 - length((aperture_texcoord - 0.5) * 2.0), 0, 1), aperture_falloff);
+    float aperture_filter = pow(clamp(1.0 - length((aperture_texcoord - 0.5) * 2.0), 0.0, 1.0), aperture_falloff);
 
     color = vec4(srgbGammaExpand(texture(data_image, data_image_coord).xyz) * aperture_filter, aperture_filter);
 })";

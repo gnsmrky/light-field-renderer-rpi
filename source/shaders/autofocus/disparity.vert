@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char disparity_vert[] = R"(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 // Properties of desired camera
 uniform float focus_distance;
@@ -17,7 +19,7 @@ uniform vec2 data_eye;
 
 uniform vec2 size;
 
-in vec2 position;
+layout (location = 0) in vec2 position;
 
 out vec2 st;
 
@@ -35,5 +37,5 @@ void main()
     st = projectToDataCamera(focal_point);
 
     vec3 e2p = normalize(focal_point - eye);
-    gl_Position = VP * vec4(vec3(eye.xy + e2p.xy * (-1 / e2p.z), eye.z - 1), 1.0);
+    gl_Position = VP * vec4(vec3(eye.xy + e2p.xy * (-1.0 / e2p.z), eye.z - 1.0), 1.0);
 })";

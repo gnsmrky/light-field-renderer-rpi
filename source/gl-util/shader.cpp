@@ -17,7 +17,7 @@ Shader::Shader(const char* vert_source, const char* frag_source)
     if (!success)
     {
         glGetShaderInfoLog(vertex_shader, 512, NULL, infoLog);
-        throw std::runtime_error("Vertex shader error: " + std::string(infoLog));
+        throw std::runtime_error("Vertex shader error: " + std::string(infoLog) + "Shader: " + vert_source);
     }
 
     int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);

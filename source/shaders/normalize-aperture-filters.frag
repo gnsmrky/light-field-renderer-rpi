@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char normalize_aperture_filters_frag[] = R"glsl(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 uniform sampler2D accumulation_texture;
 

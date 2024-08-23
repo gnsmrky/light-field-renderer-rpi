@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char light_field_renderer_vert[] = R"(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 // Properties of desired camera
 uniform mat4 VP;
@@ -16,8 +18,8 @@ uniform float aperture_diameter;
 // Properties of current data camera
 uniform vec2 data_eye;
 
-in vec2 position;
-in vec2 texcoord;
+layout (location = 0) in vec2 position;
+layout (location = 1) in vec2 texcoord;
 
 out vec2 aperture_texcoord;
 out vec2 data_image_coord;
@@ -45,5 +47,5 @@ void main()
     // Point on focal plane projected to the image space of the desired camera. The point is projected to a plane parallel 
     // with the camera plane first. This seems to handle some edge cases close to z=0 that I haven't figured out yet.
     vec3 e2p = normalize(focal_point - eye);
-    gl_Position = VP * vec4(eye.xy + e2p.xy * (-1 / e2p.z), eye.z - 1, 1.0);
+    gl_Position = VP * vec4(eye.xy + e2p.xy * (-1.0 / e2p.z), eye.z - 1.0, 1.0);
 })";

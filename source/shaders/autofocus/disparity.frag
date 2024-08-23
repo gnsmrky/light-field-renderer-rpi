@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char disparity_frag[] = R"(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 uniform sampler2D image;
 
@@ -23,7 +25,7 @@ vec3 srgbGammaExpand(vec3 c)
 
 void main() 
 {
-    if(st.x < 0 || st.x > 1 || st.y < 0 || st.y > 1)
+    if(st.x < 0.0 || st.x > 1.0 || st.y < 0.0 || st.y > 1.0)
     {
         discard;
     }

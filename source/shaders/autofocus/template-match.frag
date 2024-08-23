@@ -6,8 +6,10 @@ image (green channel) over all template pixels, when the template image is
 placed with its lower left corner over the current search image texel.
 *************************************************************************/
 inline constexpr char template_match_frag[] = R"glsl(
-#version 140
+#version 310 es
 #line 10
+
+precision mediump float;
 
 uniform sampler2D disparity_image;
 
@@ -21,7 +23,7 @@ out vec4 color;
 
 void main()
 {
-    vec2 S_xy = interpolated_texcoord * size;
+    vec2 S_xy = interpolated_texcoord * vec2(size);
 
     float sum = 0.0;
     for(int x = template_min.x; x < template_max.x; x++)
@@ -30,10 +32,10 @@ void main()
         {
             vec2 T_xy = vec2(x, y);
 
-            float S = texture(disparity_image, (S_xy + T_xy - template_min) / size).r;
-            float T = texture(disparity_image, T_xy / size).g;
+            float S = texture(disparity_image, (S_xy + T_xy - vec2(template_min)) / vec2(size)).r;
+            float T = texture(disparity_image, T_xy / vec2(size)).g;
 
-            sum += pow(S-T, 2);
+            sum += pow(S-T, 2.0);
         }
     }
     color.r = sum;

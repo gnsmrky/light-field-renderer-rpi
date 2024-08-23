@@ -1,8 +1,10 @@
 #pragma once
 
 inline constexpr char visualize_autofocus_frag[] = R"glsl(
-#version 140
+#version 310 es
 #line 5
+
+precision mediump float;
 
 uniform sampler2D disparity_image;
 
@@ -27,17 +29,17 @@ vec2 srgbGammaCompress(vec2 c)
 
 void main()
 {
-    ivec2 px = ivec2(interpolated_texcoord * size);
+    ivec2 px = ivec2(interpolated_texcoord * vec2(size));
     ivec2 search_size = search_max - search_min;
     ivec2 template_size = template_max - template_min;
     const int w = 2;
     
     if(px.x < search_size.x && px.y < search_size.y)
     {
-        vec2 c = srgbGammaCompress(texture(disparity_image, (search_min + px) / vec2(size)).xy);
+        vec2 c = srgbGammaCompress(texture(disparity_image, vec2(search_min + px) / vec2(size)).xy);
         color = vec4(vec3(c.r), 1.0);
 
-        ivec2 offset = (search_size - template_size) / 2;
+        ivec2 offset = ivec2(search_size - template_size) / 2;
         if(px.x < template_size.x + offset.x + w && px.y < template_size.y + offset.y + w && px.x > offset.x - w && px.y > offset.y - w)
         {
             if(px.x > template_size.x + offset.x || px.y > template_size.y + offset.y || px.x < offset.x || px.y < offset.y)
@@ -57,7 +59,7 @@ void main()
         ivec2 offset = ivec2(search_size.x, 0) + (search_size - template_size) / 2;
         if(px.x < template_size.x + offset.x && px.y < template_size.y + offset.y && px.x > offset.x && px.y > offset.y)
         {
-            vec2 c = srgbGammaCompress(texture(disparity_image, (template_min + px - offset) / vec2(size)).xy);
+            vec2 c = srgbGammaCompress(texture(disparity_image, vec2(template_min + px - offset) / vec2(size)).xy);
             color = vec4(vec3(c.g), 1.0);
             return;
         }
