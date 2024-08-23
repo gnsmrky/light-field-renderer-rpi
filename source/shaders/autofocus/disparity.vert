@@ -1,7 +1,7 @@
 #pragma once
 
 inline constexpr char disparity_vert[] = R"(
-#version 330 core
+#version 140
 #line 5
 
 // Properties of desired camera
@@ -17,7 +17,7 @@ uniform vec2 data_eye;
 
 uniform vec2 size;
 
-layout (location = 0) in vec2 position;
+in vec2 position;
 
 out vec2 st;
 

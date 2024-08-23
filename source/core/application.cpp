@@ -7,7 +7,7 @@
 #include "light-field-renderer.hpp"
 
 Application::Application() : 
-    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 3U), 
+    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
     cfg(std::make_shared<Config>())
 {
     inc_ref();
@@ -234,7 +234,7 @@ Application::Application() :
     );
 
     float_box_rows.push_back(PropertyBoxRow(window, { &cfg->x, &cfg->y, &cfg->z }, "Position", "m", 3, 0.1f));
-    float_box_rows.push_back(PropertyBoxRow(window, { &cfg->yaw, &cfg->pitch }, "Rotation", "°", 1, 1.0f));
+    float_box_rows.push_back(PropertyBoxRow(window, { &cfg->yaw, &cfg->pitch }, "Rotation", "ï¿½", 1, 1.0f));
     float_box_rows.push_back(PropertyBoxRow(window, { &cfg->target_x, &cfg->target_y, &cfg->target_z }, "Target", "m", 3, 1.0f));
 
     sliders.emplace_back(window, &cfg->speed, "Speed", "m/s", 2);

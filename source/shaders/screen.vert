@@ -1,11 +1,11 @@
 #pragma once
 
 inline constexpr char screen_vert[] = R"glsl(
-#version 330 core
+#version 140
 #line 5
 
-layout (location = 0) in vec2 position;
-layout (location = 1) in vec2 texcoord;
+in vec2 position;
+in vec2 texcoord;
 
 out vec2 interpolated_texcoord;
 

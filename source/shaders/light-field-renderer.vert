@@ -1,7 +1,7 @@
 #pragma once
 
 inline constexpr char light_field_renderer_vert[] = R"(
-#version 330 core
+#version 140
 #line 5
 
 // Properties of desired camera
@@ -16,8 +16,8 @@ uniform float aperture_diameter;
 // Properties of current data camera
 uniform vec2 data_eye;
 
-layout (location = 0) in vec2 position;
-layout (location = 1) in vec2 texcoord;
+in vec2 position;
+in vec2 texcoord;
 
 out vec2 aperture_texcoord;
 out vec2 data_image_coord;

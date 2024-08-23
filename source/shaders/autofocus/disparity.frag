@@ -1,7 +1,7 @@
 #pragma once
 
 inline constexpr char disparity_frag[] = R"(
-#version 330 core
+#version 140
 #line 5
 
 uniform sampler2D image;

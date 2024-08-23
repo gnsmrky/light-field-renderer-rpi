@@ -1,7 +1,7 @@
 #pragma once
 
 inline constexpr char visualize_autofocus_frag[] = R"glsl(
-#version 330 core
+#version 140
 #line 5
 
 uniform sampler2D disparity_image;

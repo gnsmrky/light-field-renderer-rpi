@@ -6,7 +6,7 @@ image (green channel) over all template pixels, when the template image is
 placed with its lower left corner over the current search image texel.
 *************************************************************************/
 inline constexpr char template_match_frag[] = R"glsl(
-#version 330 core
+#version 140
 #line 10
 
 uniform sampler2D disparity_image;
