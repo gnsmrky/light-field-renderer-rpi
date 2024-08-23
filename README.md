@@ -1,3 +1,9 @@
+Back port to OpenGL 3.1 so it runs on Raspberry Pi.
+
+[Forked from light-field-renderer](https://github.com/linusmossberg/light-field-renderer)
+
+------------------------------ ### Original Readme ------------------------------
+
 # Light Field Renderer
 
 This is a light field renderer that can synthesize new camera views from a collection of images.
