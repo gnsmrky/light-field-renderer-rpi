@@ -1,4 +1,6 @@
-Back port to OpenGL 3.1 so it runs on Raspberry Pi.
+Work in progress...
+
+Porting it to OpenGL ES 3.1.  Not yet working.  UI works.  Lightfield rendering screen is black...
 
 [Forked from light-field-renderer](https://github.com/linusmossberg/light-field-renderer)
 

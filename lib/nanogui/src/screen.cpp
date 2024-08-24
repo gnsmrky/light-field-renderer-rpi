@@ -47,7 +47,8 @@
 #  if defined(NANOGUI_USE_OPENGL)
 #    define NANOVG_GL3_IMPLEMENTATION
 #  elif defined(NANOGUI_USE_GLES)
-#    define NANOVG_GLES2_IMPLEMENTATION
+//#    define NANOVG_GLES2_IMPLEMENTATION
+#    define NANOVG_GLES3_IMPLEMENTATION
 #  endif
 #  include <nanovg_gl.h>
 #  include "opengl_check.h"
@@ -495,7 +496,8 @@ void Screen::initialize(GLFWwindow *window, bool shutdown_glfw) {
 #if defined(NANOGUI_USE_OPENGL)
     m_nvg_context = nvgCreateGL3(flags);
 #elif defined(NANOGUI_USE_GLES)
-    m_nvg_context = nvgCreateGLES2(flags);
+//    m_nvg_context = nvgCreateGLES2(flags);
+    m_nvg_context = nvgCreateGLES3(flags);
 #elif defined(NANOGUI_USE_METAL)
     void *nswin = glfwGetCocoaWindow(window);
     metal_window_init(nswin, m_float_buffer);
@@ -537,7 +539,8 @@ Screen::~Screen() {
 #if defined(NANOGUI_USE_OPENGL)
         nvgDeleteGL3(m_nvg_context);
 #elif defined(NANOGUI_USE_GLES)
-        nvgDeleteGLES2(m_nvg_context);
+//        nvgDeleteGLES2(m_nvg_context);
+        nvgDeleteGLES3(m_nvg_context);
 #elif defined(NANOGUI_USE_METAL)
         nvgDeleteMTL(m_nvg_context);
 #endif

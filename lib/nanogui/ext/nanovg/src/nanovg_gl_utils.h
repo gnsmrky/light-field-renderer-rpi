@@ -76,7 +76,7 @@ NVGLUframebuffer* nvgluCreateFramebuffer(NVGcontext* ctx, int w, int h, int imag
 #endif
 
 	fb->ctx = ctx;
-
+d
 	// frame buffer object
 	glGenFramebuffers(1, &fb->fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, fb->fbo);
