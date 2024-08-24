@@ -6,6 +6,8 @@
 
 #include "light-field-renderer.hpp"
 
+#include <unistd.h>
+
 Application::Application() : 
     Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
     cfg(std::make_shared<Config>())
@@ -93,14 +95,26 @@ Application::Application() :
     b->set_tooltip("Select any file from the light field folder.");
     b->set_callback([this]
     {
-        std::string path = nanogui::file_dialog
-        (
-            { 
-                {"cfg", ""}, {"jpeg", ""}, { "jpg","" }, {"png",""}, 
-                {"tga",""}, {"bmp",""}, {"psd",""}, {"gif",""}, 
-                {"hdr",""}, {"pic",""}, {"pnm", ""} 
-            }, false
-        );
+        char cwd[PATH_MAX] = "";
+        getcwd(cwd, sizeof(cwd));
+
+        std::string path_cfg = std::string(cwd) + "/shop-1-row/config.cfg";
+        int path_cfg_exists = access (path_cfg.c_str(), F_OK);
+
+        std::string path;
+        if (path_cfg_exists == 0) {
+            path = path_cfg;
+        }
+        else {
+            path = nanogui::file_dialog
+            (
+                { 
+                    {"cfg", ""}, {"jpeg", ""}, { "jpg","" }, {"png",""}, 
+                    {"tga",""}, {"bmp",""}, {"psd",""}, {"gif",""}, 
+                    {"hdr",""}, {"pic",""}, {"pnm", ""} 
+                }, false
+            );
+        }
 
         if (path.empty()) return;
 
