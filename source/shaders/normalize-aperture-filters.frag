@@ -1,10 +1,13 @@
 #pragma once
 
-inline constexpr char normalize_aperture_filters_frag[] = R"glsl(
-#version 310 es
+inline constexpr char normalize_aperture_filters_frag[] = R"glsl(#version 310 es
 #line 5
 
 precision mediump float;
+
+in vec2 interpolated_texcoord;
+
+out vec4 color;
 
 uniform sampler2D accumulation_texture;
 
@@ -18,9 +21,6 @@ uniform float max_weight_sum;
 
 uniform float exposure;
 
-in vec2 interpolated_texcoord;
-
-out vec4 color;
 
 vec3 srgbGammaCompress(vec3 c)
 {

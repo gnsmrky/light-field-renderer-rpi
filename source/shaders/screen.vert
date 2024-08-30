@@ -1,7 +1,6 @@
 #pragma once
 
-inline constexpr char screen_vert[] = R"glsl(
-#version 310 es
+inline constexpr char screen_vert[] = R"glsl(#version 310 es
 #line 5
 
 precision mediump float;

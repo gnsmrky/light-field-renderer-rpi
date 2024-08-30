@@ -1,10 +1,16 @@
 #pragma once
 
-inline constexpr char light_field_renderer_vert[] = R"(
-#version 310 es
+inline constexpr char light_field_renderer_vert[] = R"(#version 310 es
 #line 5
 
 precision mediump float;
+
+
+layout (location = 0) in vec2 position;
+layout (location = 1) in vec2 texcoord;
+
+out vec2 aperture_texcoord;
+out vec2 data_image_coord;
 
 // Properties of desired camera
 uniform mat4 VP;
@@ -17,12 +23,6 @@ uniform float aperture_diameter;
 
 // Properties of current data camera
 uniform vec2 data_eye;
-
-layout (location = 0) in vec2 position;
-layout (location = 1) in vec2 texcoord;
-
-out vec2 aperture_texcoord;
-out vec2 data_image_coord;
 
 /******************************************************************
 Forward declared fuction that is appended later depending on the 

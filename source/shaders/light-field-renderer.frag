@@ -1,19 +1,19 @@
 #pragma once
 
-inline constexpr char light_field_renderer_frag[] = R"(
-#version 310 es
+inline constexpr char light_field_renderer_frag[] = R"(#version 310 es
 #line 5
 
 precision mediump float;
+
+in vec2 aperture_texcoord;
+in vec2 data_image_coord;
+
+out vec4 color;
 
 uniform sampler2D data_image;
 
 uniform float aperture_falloff;
 
-out vec4 color;
-
-in vec2 aperture_texcoord;
-in vec2 data_image_coord;
 
 vec3 srgbGammaExpand(vec3 c)
 {

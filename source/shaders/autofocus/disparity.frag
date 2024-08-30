@@ -1,18 +1,18 @@
 #pragma once
 
-inline constexpr char disparity_frag[] = R"(
-#version 310 es
+inline constexpr char disparity_frag[] = R"(#version 310 es
 #line 5
 
 precision mediump float;
+
+out vec4 color;
+
+in vec2 st;
 
 uniform sampler2D image;
 
 uniform int channel;
 
-out vec4 color;
-
-in vec2 st;
 
 vec3 srgbGammaExpand(vec3 c)
 {
@@ -34,6 +34,6 @@ void main()
 
     float luminance = 0.2126 * linear.r + 0.7152 * linear.g + 0.0722 * linear.b;
 
-    color = vec4(0.0, 0.0, 0.0, 1.0);
+    //color = vec4(0.0, 0.0, 0.0, 1.0);
     color[channel] = luminance;
 })";

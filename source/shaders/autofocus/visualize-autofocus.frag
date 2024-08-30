@@ -1,10 +1,13 @@
 #pragma once
 
-inline constexpr char visualize_autofocus_frag[] = R"glsl(
-#version 310 es
+inline constexpr char visualize_autofocus_frag[] = R"glsl(#version 310 es
 #line 5
 
 precision mediump float;
+
+in vec2 interpolated_texcoord;
+
+out vec4 color;
 
 uniform sampler2D disparity_image;
 
@@ -14,9 +17,6 @@ uniform ivec2 template_max;
 uniform ivec2 search_min;
 uniform ivec2 search_max;
 
-in vec2 interpolated_texcoord;
-
-out vec4 color;
 
 vec2 srgbGammaCompress(vec2 c)
 {

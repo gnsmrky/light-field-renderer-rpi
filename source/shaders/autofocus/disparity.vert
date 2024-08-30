@@ -1,10 +1,14 @@
 #pragma once
 
-inline constexpr char disparity_vert[] = R"(
-#version 310 es
+inline constexpr char disparity_vert[] = R"(#version 310 es
 #line 5
 
 precision mediump float;
+
+
+layout (location = 0) in vec2 position;
+
+out vec2 st;
 
 // Properties of desired camera
 uniform float focus_distance;
@@ -18,10 +22,6 @@ uniform mat4 VP;
 uniform vec2 data_eye;
 
 uniform vec2 size;
-
-layout (location = 0) in vec2 position;
-
-out vec2 st;
 
 /******************************************************************
 Forward declared fuction that is appended later depending on the 
