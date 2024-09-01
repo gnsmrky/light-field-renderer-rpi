@@ -4,9 +4,12 @@
 
 #include <nanogui/opengl.h>
 
+#include "cube_texture.hpp"
 #include "light-field-renderer.hpp"
 
 #include <unistd.h>
+
+constexpr float Pi = 3.14159f;
 
 Application::Application() : 
     Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
@@ -325,6 +328,30 @@ Application::Application() :
     label->set_tooltip("Scale of rectified light fields. Has no effect on unrectified light fields.");
     sliders.emplace_back(window, &cfg->st_width, "ST Width", "m", 1);
     sliders.emplace_back(window, &cfg->st_distance, "ST Distance", "m", 1);
+
+    //----- new window for GLES 3.1 Canvas -----
+    nanogui::Window *texture_window = new nanogui::Window(this, "Textured Cube");
+    texture_window->set_position(nanogui::Vector2i(500, 15));
+    texture_window->set_layout(new nanogui::GroupLayout());
+    
+    // texture canvas
+    m_textureCanvas = new MyTextureCanvas(texture_window);
+    m_textureCanvas->set_background_color(nanogui::Color(32, 32, 128, 255));
+    m_textureCanvas->set_fixed_size({400, 400});
+
+    nanogui::Widget *texture_tools = new nanogui::Widget(texture_window);
+    texture_tools->set_layout(new nanogui::BoxLayout(nanogui::Orientation::Horizontal,
+                                    nanogui::Alignment::Middle, 0, 5));
+    nanogui::Button *t_b0 = new nanogui::Button(texture_tools, "Random Background");
+    t_b0->set_callback([this]() {
+        m_textureCanvas->set_background_color(
+            nanogui::Vector4i(rand() % 256, rand() % 256, rand() % 256, 255));
+    });
+
+    nanogui::Button *t_b1 = new nanogui::Button(texture_tools, "Random Rotation");
+    t_b1->set_callback([this]() {
+        m_textureCanvas->set_rotation((float) Pi * rand() / (float) RAND_MAX);
+    });
 
     perform_layout();
 }

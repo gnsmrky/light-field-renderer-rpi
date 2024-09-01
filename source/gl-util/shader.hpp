@@ -1,11 +1,11 @@
 #pragma once
 
-class Shader
+class LFShader
 {
 public:
-    Shader(const char* vert_source, const char* frag_source);
+    LFShader(const char* vert_source, const char* frag_source);
 
-    ~Shader();
+    ~LFShader();
 
     int getLocation(const char* name);
 

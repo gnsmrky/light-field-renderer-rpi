@@ -177,22 +177,22 @@ void LightFieldRenderer::open()
 
         if (!camera_array->light_slab)
         {
-            shader = std::make_unique<Shader>(
+            shader = std::make_unique<LFShader>(
                 (std::string(light_field_renderer_vert) + std::string(perspective_projection)).c_str(),
                 light_field_renderer_frag
             );
-            disparity_shader = std::make_unique<Shader>(
+            disparity_shader = std::make_unique<LFShader>(
                 (std::string(disparity_vert) + std::string(perspective_projection)).c_str(),
                 disparity_frag
             );
         }
         else
         {
-            shader = std::make_unique<Shader>(
+            shader = std::make_unique<LFShader>(
                 (std::string(light_field_renderer_vert) + std::string(light_slab_projection)).c_str(),
                 light_field_renderer_frag
             );
-            disparity_shader = std::make_unique<Shader>(
+            disparity_shader = std::make_unique<LFShader>(
                 (std::string(disparity_vert) + std::string(light_slab_projection)).c_str(),
                 disparity_frag
             );

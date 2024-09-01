@@ -1,6 +1,7 @@
 #include <nanogui/nanogui.h>
 
 #include "config.hpp"
+#include "cube_texture.hpp"
 
 class LightFieldRenderer;
 
@@ -48,4 +49,6 @@ private:
 
     std::vector<PropertySlider> sliders;
     std::vector<PropertyBoxRow> float_box_rows;
+
+    MyTextureCanvas *m_textureCanvas;
 };

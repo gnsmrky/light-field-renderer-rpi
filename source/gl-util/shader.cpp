@@ -5,7 +5,7 @@
 
 #include <nanogui/opengl.h>
 
-Shader::Shader(const char* vert_source, const char* frag_source)
+LFShader::LFShader(const char* vert_source, const char* frag_source)
 {
     int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex_shader, 1, &vert_source, NULL);
@@ -48,12 +48,12 @@ Shader::Shader(const char* vert_source, const char* frag_source)
     use();
 }
 
-Shader::~Shader()
+LFShader::~LFShader()
 {
     glDeleteProgram(handle);
 }
 
-int Shader::getLocation(const char* name)
+int LFShader::getLocation(const char* name)
 {
     GLint loc = glGetUniformLocation(handle, name);
 
@@ -62,7 +62,7 @@ int Shader::getLocation(const char* name)
     return loc;
 }
 
-void Shader::use()
+void LFShader::use()
 {
     glUseProgram(handle);
 }
