@@ -12,7 +12,8 @@
 constexpr float Pi = 3.14159f;
 
 Application::Application() : 
-    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
+    //Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
+    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, /* depth buffer */ true, false, false, 3U, 1U), 
     cfg(std::make_shared<Config>())
 {
     inc_ref();
