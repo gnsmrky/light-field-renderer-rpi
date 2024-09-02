@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 constexpr float Pi = 3.14159f;
+#define ENABLE_TEXTURED_CUBE_CANVAS 0
 #define TEXTURE_CANVAS_FILE_PATH ("/shop-1-row/Original Camera_00_00_400.000000_400.000000_30_36.jpg")
 
 Application::Application() : 
@@ -332,6 +333,7 @@ Application::Application() :
     sliders.emplace_back(window, &cfg->st_distance, "ST Distance", "m", 1);
 
     //----- new window for GLES 3.1 Canvas -----
+#if ENABLE_TEXTURED_CUBE_CANVAS
     // locate the default textue image file.
     char cwd[PATH_MAX] = "";
     getcwd(cwd, sizeof(cwd));
@@ -365,6 +367,7 @@ Application::Application() :
             m_textureCanvas->set_rotation((float) Pi * rand() / (float) RAND_MAX);
         });
     }
+#endif //ENABLE_TEXTURED_CUBE_CANVAS
 
     perform_layout();
 }
