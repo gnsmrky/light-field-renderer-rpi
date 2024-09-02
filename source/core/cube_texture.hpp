@@ -14,7 +14,7 @@ using nanogui::Widget;
 
 class MyTextureCanvas : public Canvas {
 public:
-    MyTextureCanvas(Widget *parent);
+    MyTextureCanvas(Widget *parent, const char* texture_file_path);
 
     virtual ~MyTextureCanvas();
 
@@ -25,6 +25,8 @@ public:
     virtual void draw_contents();
 
 private:
+    std::string m_texture_file_path;
+
     //ref<Shader> m_shader;
     //std::unique_ptr<Shader> m_shader;
     Shader* m_shader;

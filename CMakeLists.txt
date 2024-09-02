@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
+  #set(CMAKE_BUILD_TYPE Release)
+  set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 include(CheckCXXCompilerFlag)
@@ -46,3 +47,7 @@ endforeach()
 
 add_executable(${PROJECT_NAME} ${_source_list})
 target_link_libraries(${PROJECT_NAME} nanogui ${NANOGUI_EXTRA_LIBS})
+
+# copy files to build folder
+file(COPY light-fields/shop-1-row DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+

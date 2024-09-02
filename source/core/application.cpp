@@ -10,10 +10,11 @@
 #include <unistd.h>
 
 constexpr float Pi = 3.14159f;
+#define TEXTURE_CANVAS_FILE_PATH ("/shop-1-row/Original Camera_00_00_400.000000_400.000000_30_36.jpg")
 
 Application::Application() : 
     //Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
-    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, /* depth buffer */ true, false, false, 3U, 1U), 
+    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, /* depth buffer */ true, true, false, 3U, 1U), 
     cfg(std::make_shared<Config>())
 {
     inc_ref();
@@ -331,28 +332,39 @@ Application::Application() :
     sliders.emplace_back(window, &cfg->st_distance, "ST Distance", "m", 1);
 
     //----- new window for GLES 3.1 Canvas -----
-    nanogui::Window *texture_window = new nanogui::Window(this, "Textured Cube");
-    texture_window->set_position(nanogui::Vector2i(500, 15));
-    texture_window->set_layout(new nanogui::GroupLayout());
-    
-    // texture canvas
-    m_textureCanvas = new MyTextureCanvas(texture_window);
-    m_textureCanvas->set_background_color(nanogui::Color(32, 32, 128, 255));
-    m_textureCanvas->set_fixed_size({400, 400});
+    // locate the default textue image file.
+    char cwd[PATH_MAX] = "";
+    getcwd(cwd, sizeof(cwd));
 
-    nanogui::Widget *texture_tools = new nanogui::Widget(texture_window);
-    texture_tools->set_layout(new nanogui::BoxLayout(nanogui::Orientation::Horizontal,
-                                    nanogui::Alignment::Middle, 0, 5));
-    nanogui::Button *t_b0 = new nanogui::Button(texture_tools, "Random Background");
-    t_b0->set_callback([this]() {
-        m_textureCanvas->set_background_color(
-            nanogui::Vector4i(rand() % 256, rand() % 256, rand() % 256, 255));
-    });
+    std::string texture_file_path = std::string(cwd) + TEXTURE_CANVAS_FILE_PATH;
+        
+    int texture_file_exists = access (texture_file_path.c_str(), F_OK);
 
-    nanogui::Button *t_b1 = new nanogui::Button(texture_tools, "Random Rotation");
-    t_b1->set_callback([this]() {
-        m_textureCanvas->set_rotation((float) Pi * rand() / (float) RAND_MAX);
-    });
+    // only create texture window if the texture file exists
+    if (texture_file_exists == 0) {
+        nanogui::Window *texture_window = new nanogui::Window(this, "Textured Cube");
+        texture_window->set_position(nanogui::Vector2i(700, 15));
+        texture_window->set_layout(new nanogui::GroupLayout());
+        
+        // texture canvas
+        m_textureCanvas = new MyTextureCanvas(texture_window, texture_file_path.c_str());
+        m_textureCanvas->set_background_color(nanogui::Color(32, 32, 128, 255));
+        m_textureCanvas->set_fixed_size({500, 500});
+
+        nanogui::Widget *texture_tools = new nanogui::Widget(texture_window);
+        texture_tools->set_layout(new nanogui::BoxLayout(nanogui::Orientation::Horizontal,
+                                        nanogui::Alignment::Middle, 0, 5));
+        nanogui::Button *t_b0 = new nanogui::Button(texture_tools, "Random Background");
+        t_b0->set_callback([this]() {
+            m_textureCanvas->set_background_color(
+                nanogui::Vector4i(rand() % 256, rand() % 256, rand() % 256, 255));
+        });
+
+        nanogui::Button *t_b1 = new nanogui::Button(texture_tools, "Random Rotation");
+        t_b1->set_callback([this]() {
+            m_textureCanvas->set_rotation((float) Pi * rand() / (float) RAND_MAX);
+        });
+    }
 
     perform_layout();
 }

@@ -151,7 +151,8 @@ using nanogui::Shader;
 using nanogui::Canvas;
 using nanogui::Widget;
 
-MyTextureCanvas::MyTextureCanvas(Widget *parent) : Canvas(parent, 1), m_rotation(0.f) {
+MyTextureCanvas::MyTextureCanvas(Widget *parent, const char* texture_file_path) :
+    Canvas(parent, 1), m_texture_file_path(texture_file_path), m_rotation(0.f) {
     using namespace nanogui;
 
     m_shader = new Shader(
@@ -266,15 +267,15 @@ MyTextureCanvas::MyTextureCanvas(Widget *parent) : Canvas(parent, 1), m_rotation
     };
 
     float positions[3*8] = {
-        -1.f, 1.f, 1.f, -1.f, -1.f, 1.f,
-        1.f, -1.f, 1.f, 1.f, 1.f, 1.f,
-        -1.f, 1.f, -1.f, -1.f, -1.f, -1.f,
-        1.f, -1.f, -1.f, 1.f, 1.f, -1.f
+        -1.f,  1.f,  1.f, -1.f, -1.f,  1.f,
+         1.f, -1.f,  1.f,  1.f,  1.f,  1.f,
+        -1.f,  1.f, -1.f, -1.f, -1.f, -1.f,
+         1.f, -1.f, -1.f,  1.f,  1.f, -1.f
     };
 
     float colors[3*8] = {
         0.0, 1.0, 1.0, 0.0, 0.0, 1.0,
-        1.0, 0, 1.0, 1.0, 1.0, 1.0,
+        1.0, 0.0, 1.0, 1.0, 1.0, 1.0,
         0.0, 1.0, 0.0, 0.0, 0.0, 0.5,
         1.0, 0.0, 0.0, 1.0, 1.0, 0.5
     };
@@ -284,18 +285,18 @@ MyTextureCanvas::MyTextureCanvas(Widget *parent) : Canvas(parent, 1), m_rotation
     m_shader->set_buffer("color", VariableType::Float32, {8, 3}, colors);
     
     // load texture file
-    char cwd[PATH_MAX] = "";
-    getcwd(cwd, sizeof(cwd));
+    //char cwd[PATH_MAX] = "";
+    //getcwd(cwd, sizeof(cwd));
 
-    std::string texture_file_path = std::string(cwd) + "/icons/icon1.png";
-    int texture_file_exists = access (texture_file_path.c_str(), F_OK);
+    //std::string texture_file_path = std::string(cwd) + "/shop-1-row/Original Camera_00_00_400.000000_400.000000_30_36.jpg";
+    int texture_file_exists = access (m_texture_file_path.c_str(), F_OK);
     if (texture_file_exists == 0) {
         std::cout << "\r" << std::string(96, ' ');
         std::cout << "\rLoading " << texture_file_path;
 
         //int width, height, channels;
         int channels;
-        uint8_t* image_data = stbi_load(texture_file_path.c_str(), &m_texture_cx, &m_texture_cy, &channels, 0);
+        uint8_t* image_data = stbi_load(m_texture_file_path.c_str(), &m_texture_cx, &m_texture_cy, &channels, 0);
         if (image_data != nullptr) {
             int pixel_format;
             switch (channels)
