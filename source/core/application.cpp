@@ -10,12 +10,15 @@
 #include <unistd.h>
 
 constexpr float Pi = 3.14159f;
-#define ENABLE_TEXTURED_CUBE_CANVAS 0
+#define ENABLE_TEXTURED_CUBE_CANVAS 1
 #define TEXTURE_CANVAS_FILE_PATH ("/shop-1-row/Original Camera_00_00_400.000000_400.000000_30_36.jpg")
 
 Application::Application() : 
-    //Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
+#if ENABLE_TEXTURED_CUBE_CANVAS  // regular nanogui canvas needs depth buffer
     Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, /* depth buffer */ true, true, false, 3U, 1U), 
+#else
+    Screen(nanogui::Vector2i(1470, 750), "Light Field Renderer", true, false, false, false, false, 3U, 1U), 
+#endif //ENABLE_TEXTURED_CUBE_CANVAS
     cfg(std::make_shared<Config>())
 {
     inc_ref();
