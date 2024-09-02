@@ -363,11 +363,11 @@ MyTextureCanvas::MyTextureCanvas(Widget *parent, const char* texture_file_path) 
     GLfloat vVertices[] = {
         -1.0f, -1.0f, 0.0f,    0.0f,  0.0f, 0.0f,
         -1.0f,  1.0f, 0.0f,    0.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,    1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,    1.0f,  0.0f, 0.0f,
         
         -1.0f,  1.0f, 0.0f,    0.0f, -1.0f, 0.0f,
-            1.0f,  1.0f, 0.0f,    1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,    1.0f,  0.0f, 0.0f
+         1.0f,  1.0f, 0.0f,    1.0f, -1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,    1.0f,  0.0f, 0.0f
     };
 
     glGenVertexArrays(1, &m_vao);

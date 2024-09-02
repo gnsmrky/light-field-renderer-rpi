@@ -63,7 +63,7 @@ void LightFieldRenderer::draw_contents()
         return;
     }
 
-    fbo0->bind();
+    //fbo0->bind();
     aperture.bind();
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
