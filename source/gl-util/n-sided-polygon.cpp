@@ -61,6 +61,14 @@ void NSidedPolygon::bind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 }
 
+void NSidedPolygon::unbind()
+{
+    //NOTE: OpenGL ES 3.1 needs to unbind the buffers/arrays to work correctly
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
 void NSidedPolygon::draw()
 {
     glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, 0);

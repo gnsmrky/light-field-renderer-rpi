@@ -46,3 +46,8 @@ void Quad::draw()
 {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
+
+void Quad::unbind()
+{
+    glBindVertexArray(0);
+}

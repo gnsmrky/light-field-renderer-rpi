@@ -8,8 +8,8 @@ public:
     ~NSidedPolygon();
 
     void bind();
-
     void draw();
+    void unbind();
 
     unsigned int VBO, VAO, EBO;
 

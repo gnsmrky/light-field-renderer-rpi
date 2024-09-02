@@ -8,8 +8,8 @@ public:
     ~Quad();
 
     void bind();
-
     void draw();
+    void unbind();
 
     unsigned int VBO, VAO;
 };

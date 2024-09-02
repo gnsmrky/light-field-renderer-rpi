@@ -63,7 +63,7 @@ void LightFieldRenderer::draw_contents()
         return;
     }
 
-    //fbo0->bind();
+    fbo0->bind();
     aperture.bind();
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -95,6 +95,8 @@ void LightFieldRenderer::draw_contents()
         aperture.draw();
     }
 
+    aperture.unbind();
+
     float max_weight_sum = normalize_aperture ? 0.0f : fbo0->getMaxAlpha();
 
     fbo0->unBind();
@@ -110,6 +112,7 @@ void LightFieldRenderer::draw_contents()
     glClear(GL_COLOR_BUFFER_BIT);
 
     quad.draw();
+    quad.unbind();
 
     if (save_next) saveRender();
 }
