@@ -56,7 +56,9 @@ void LightFieldRenderer::draw_contents()
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        quad.bind();
         quad.draw();
+        quad.unbind();
 
         if (save_next) saveRender();
 

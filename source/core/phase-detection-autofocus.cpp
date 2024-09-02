@@ -74,6 +74,7 @@ void LightFieldRenderer::phaseDetectionAutofocus()
         quad.draw();
     }
     
+    quad.unbind();
     fbo1->unBind();
 
     if (visualize_autofocus)
@@ -103,7 +104,9 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     glUniform2iv(template_match_shader.getLocation("template_min"), 1, &template_min[0]);
     glUniform2iv(template_match_shader.getLocation("template_max"), 1, &template_max[0]);
 
+    quad.bind();
     quad.draw();
+    quad.unbind();
 
     if (sqdiff_data.size() != search_size.x * search_size.y)
     {

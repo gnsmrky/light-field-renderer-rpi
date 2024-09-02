@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 constexpr float Pi = 3.14159f;
-#define ENABLE_TEXTURED_CUBE_CANVAS 1
+#define ENABLE_TEXTURED_CUBE_CANVAS 0
 #define TEXTURE_CANVAS_FILE_PATH ("/shop-1-row/Original Camera_00_00_400.000000_400.000000_30_36.jpg")
 
 Application::Application() : 
