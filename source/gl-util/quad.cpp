@@ -49,5 +49,6 @@ void Quad::draw()
 
 void Quad::unbind()
 {
+    glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 }

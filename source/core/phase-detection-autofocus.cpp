@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "light-field-renderer.hpp"
 
 #include <glm/gtx/transform.hpp>
@@ -24,6 +26,8 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     cfg->autofocus_x = af_pos.x / (float)fb_size.x;
     cfg->autofocus_y = af_pos.y / (float)fb_size.y;
 
+    std::cout << "autofocus x,y: " << cfg->autofocus_x << ", " << cfg->autofocus_y << std::endl;
+    
     glm::ivec2 cameras;
     cameras.x = camera_array->findClosestCamera(pixelToCameraPlane(glm::vec2(fb_size) * 0.4f));
     cameras.y = camera_array->findClosestCamera(pixelToCameraPlane(glm::vec2(fb_size) * 0.6f), cameras.x);
@@ -74,7 +78,6 @@ void LightFieldRenderer::phaseDetectionAutofocus()
         quad.draw();
     }
     
-    quad.unbind();
     fbo1->unBind();
 
     if (visualize_autofocus)
@@ -104,7 +107,6 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     glUniform2iv(template_match_shader.getLocation("template_min"), 1, &template_min[0]);
     glUniform2iv(template_match_shader.getLocation("template_max"), 1, &template_max[0]);
 
-    quad.bind();
     quad.draw();
     quad.unbind();
 
@@ -112,7 +114,7 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     {
         sqdiff_data.resize(search_size.x * search_size.y);
     }
-    glReadPixels(search_min.x, search_min.y, search_size.x, search_size.y, GL_RED, GL_FLOAT, sqdiff_data.data());
+    glReadPixels(search_min.x, search_min.y, search_size.x, search_size.y, GL_RGBA, GL_FLOAT, sqdiff_data.data());
     fbo0->unBind();
 
     glm::vec2 best;
@@ -121,7 +123,7 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     {
         for (int y = 0; y < search_size.y; y++)
         {
-            float diff = sqdiff_data[x + y * search_size.y];
+            float diff = sqdiff_data[x + y * search_size.y].r;
             if (diff < min_diff)
             {
                 min_diff = diff;
@@ -129,6 +131,8 @@ void LightFieldRenderer::phaseDetectionAutofocus()
             }
         }
     }
+
+    std::cout << "best: " << best.x << ", " << best.y << std::endl;
 
     best += glm::vec2(template_size) * 0.5f;
 
@@ -150,6 +154,10 @@ void LightFieldRenderer::phaseDetectionAutofocus()
     glm::vec3 nf = closestPointBetweenRays(c0, d0, c1, d1);
 
     cfg->focus_distance = glm::dot(nf - eye, forward);
+    std::cout << "focus_disance (property): " << cfg->focus_distance << std::endl;
+
+    float focus_disance = glm::dot(nf - eye, forward);
+    std::cout << "focus_disance: " << focus_disance << std::endl;
 }
 
 glm::vec3 LightFieldRenderer::pixelDirection(const glm::vec2 &px)

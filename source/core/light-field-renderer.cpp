@@ -256,6 +256,8 @@ bool LightFieldRenderer::mouse_button_event(const nanogui::Vector2i &p, int butt
         cfg->autofocus_x = px.x() / (float)size().x();
         cfg->autofocus_y = px.y() / (float)size().y();
         autofocus_click = true;
+        
+        //std::cout << "autofocus (click) x,y: " << cfg->autofocus_x << ", " << cfg->autofocus_y << std::endl;
     }
 
     return true;

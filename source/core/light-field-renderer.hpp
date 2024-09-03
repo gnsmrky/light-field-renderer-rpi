@@ -78,7 +78,9 @@ private:
     glm::vec3 pixelDirection(const glm::vec2 &px);
     glm::vec3 pixelToFocalPlane(const glm::vec2 &px);
     glm::vec2 pixelToCameraPlane(const glm::vec2 &px);
-    std::vector<float> sqdiff_data;
+
+    //std::vector<float> sqdiff_data;
+    std::vector<glm::vec4> sqdiff_data;
 
     std::shared_ptr<Config> cfg;
     std::unique_ptr<CameraArray> camera_array;

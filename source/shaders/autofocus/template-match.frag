@@ -8,7 +8,7 @@ placed with its lower left corner over the current search image texel.
 inline constexpr char template_match_frag[] = R"glsl(#version 310 es
 #line 10
 
-precision mediump float;
+precision highp float;
 
 in vec2 interpolated_texcoord;
 
